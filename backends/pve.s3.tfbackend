@@ -1,0 +1,5 @@
+bucket         = "nedkoff-terraform-state"
+key            = "terraform-state/pve.tfstate"
+region         = "us-east-2"
+encrypt        = true
+dynamodb_table = "terraform-lockid"
