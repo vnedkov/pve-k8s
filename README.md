@@ -9,4 +9,4 @@ This repository contains terraform code to deploy a Talos Kubernetes cluster on 
 ## Post-deployment steps
 
 ## Credits
-* https://blog.stonegarden.dev/articles/2024/08/talos-proxmox-tofu/#the-top
+* Thanks to Vegard S. Hagen for creating this [guide](https://blog.stonegarden.dev/articles/2024/08/talos-proxmox-tofu/#the-top)
