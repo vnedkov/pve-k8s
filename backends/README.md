@@ -2,7 +2,7 @@
 
 ## Setup
 ### Open an AWS account
-If you don't have an AWS account, open a new one. The resource use will qualify for the free tier.
+If you don't have an AWS account, open a new one. The resource use (S3 bucket + DynamoDB table) will qualify for the free tier, so there is no financial reason not to use AWS S3 as a backend
 ### Create an S3 bucket
 Login in AWS console and create a new bucket. Please note, bucket names are globally unique, so choose a name that is unlikely to exist already. Disable public access.
 ### Create a DynamoDB table
@@ -10,7 +10,7 @@ Create a new DynamoDB table with a single column `LockID` of type `string` as a 
 
 ## Configure
 Edit `pve.s3.tfbackend` file, or create a new one that fits your environment setup
-Modify `bucket`, `region` and `dynamodb_table` properties to match the resource names, created in the previous step.
+Modify `bucket`, `region` and `dynamodb_table` properties to match the resource names, created in the previous steps.
 Optionally, change `key` and/or `encrypt` properties.
 
 ## Initialize

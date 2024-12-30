@@ -1,5 +1,5 @@
 module "talos" {
-  source = "github.com/vnedkov/pve-k8s-talos.git?ref=v0.0.1"
+  source = "github.com/vnedkov/pve-k8s-talos.git?ref=v0.0.2"
 
   providers = {
     proxmox = proxmox
@@ -8,4 +8,6 @@ module "talos" {
   image   = var.image
   cluster = var.cluster
   nodes   = var.nodes
+
+  machine_config_patches = local.machine_config_patches
 }
