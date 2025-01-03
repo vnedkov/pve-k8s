@@ -5,6 +5,7 @@ metadata:
   name: cilium-values
   namespace: kube-system
 data:
+  # https://github.com/cilium/cilium/blob/main/install/kubernetes/cilium/values.yaml
   values.yaml: |-
     cluster:
       name: talos
@@ -71,6 +72,7 @@ data:
 
     gatewayAPI:
       enabled: true
+      
     envoy:
       securityContext:
         capabilities:
@@ -87,6 +89,7 @@ data:
         rollOutPods: true
 
     ingressController:
+      # Use Gateway API instead
       enabled: false
       default: true
       loadbalancerMode: shared

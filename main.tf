@@ -1,5 +1,5 @@
 module "talos" {
-  source = "github.com/vnedkov/pve-k8s-talos.git?ref=v0.0.2"
+  source = "github.com/vnedkov/pve-k8s-talos.git?ref=v0.0.3"
 
   providers = {
     proxmox = proxmox
