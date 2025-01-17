@@ -72,7 +72,9 @@ data:
 
     gatewayAPI:
       enabled: true
-      
+
+    devices: "eth+"
+        
     envoy:
       securityContext:
         capabilities:
@@ -89,13 +91,9 @@ data:
         rollOutPods: true
 
     ingressController:
-      # Use Gateway API instead
-      enabled: false
+      enabled: true
       default: true
-      loadbalancerMode: shared
-      service:
-        annotations:
-          io.cilium/lb-ipam-ips: 192.168.0.190
+      loadbalancerMode: dedicated
 
     # mTLS
     authentication:

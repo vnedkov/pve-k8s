@@ -48,3 +48,9 @@ variable "nodes" {
     igpu = optional(bool, false)
   }))
 }
+
+variable "skip_on_destroy" {
+  description = "Whether a data or a resource should be skipped on destroy. Useful for health checks. Otherwise, use lifecycle attribute."
+  type = bool
+  default = false
+}
