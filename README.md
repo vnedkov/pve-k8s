@@ -9,6 +9,25 @@ In order to install Cilium, CNI must not be defined in the cluster. That prevent
 
 ## Before applying
 
+## Creating the cluster
+To create the cluster, run
+```
+terraform apply
+```
+After completion copy configuration files in your home directory
+```
+cp output/kube-config.yaml  ~/.kube/config
+cp output/talos-config.yaml ~/.talos/config
+```
+Now you can first check Talos dashboard. Wait until the status is Ready
+```
+talosctl dashboard
+```
+You can also check cilium status with
+```
+cilium status --wait
+```
+
 ## Post-deployment steps
 
 ## Destroying the cluster
