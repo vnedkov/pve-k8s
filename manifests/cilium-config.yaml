@@ -60,6 +60,9 @@ data:
 
     l2announcements:
       enabled: true
+      leaseDuration: "3s"
+      leaseRenewDeadline: "1s"
+      leaseRetryPeriod: "500ms"
 
     externalIPs:
       enabled: true
@@ -72,6 +75,8 @@ data:
 
     gatewayAPI:
       enabled: true
+      enableAlpn: true
+      enableAppProxy: true
 
     devices: "eth+"
         

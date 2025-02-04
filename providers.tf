@@ -23,7 +23,7 @@ terraform {
     }
     talos = {
       source  = "siderolabs/talos"
-      version = "0.6.0"
+      version = "0.7.0"
     }
     restapi = {
       source  = "Mastercard/restapi"
@@ -89,6 +89,10 @@ provider "helm" {
     client_certificate     = local.client_certificate
     client_key             = local.client_key
   }
+}
+
+provider "http" {
+  
 }
 
 # Simple provider for checking the cluster availability over http
