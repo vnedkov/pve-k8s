@@ -96,31 +96,31 @@ locals {
               # Gateway CRDs - see https://github.com/cilium/cilium/issues/33239 to understand why this is necessary before cluster creation
               {
                 name = "io_gatewayclasses"
-                contents = data.http.io_gatewayclasses.body
+                contents = data.http.io_gatewayclasses.response_body
               },
               {
                 name = "io_gateways"
-                contents = data.http.io_gateways.body
+                contents = data.http.io_gateways.response_body
               },
               {
                 name = "io_httproutes"
-                contents = data.http.io_httproutes.body
+                contents = data.http.io_httproutes.response_body
               },
               {
                 name = "io_referencegrants"
-                contents = data.http.io_referencegrants.body
+                contents = data.http.io_referencegrants.response_body
               },
               {
                 name = "io_grpcroutes"
-                contents = data.http.io_grpcroutes.body
+                contents = data.http.io_grpcroutes.response_body
               },
               {
                 name = "io_tlsroutes"
-                contents = data.http.io_tlsroutes.body
+                contents = data.http.io_tlsroutes.response_body
               },
               {
                 name = "io_tcproutes"
-                contents = data.http.io_tcproutes.body
+                contents = data.http.io_tcproutes.response_body
               },
               # Cilium installation
               {
