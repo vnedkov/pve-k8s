@@ -38,9 +38,12 @@ terraform destroy -var 'skip_on_destroy=true'
 
 ## Other thoughts
 ### Why Talos? 
-Talos is an immutable OS, allowing configuration only through cli and API
+Talos is an immutable OS, allowing configuration only through cli and API, hence hewer things to break.
+However, over time the machine configuration becomes more and more verbose.
 ### Why Cilium? 
-Cilium provides policy based control over internal networking in a Kubernetes cluster, IPAM, loadbalancing and recently - Gateway API (L7 networking). I need a descriptive way to deploy my services in my lab.
+Cilium provides policy based control over internal networking in a Kubernetes cluster, IPAM, loadbalancing and recently - Gateway API (L7 networking). This allows for more granular control and increased visibility (through Hubble UI).
+### Why Longhorn
+Longhorn can manage distributed block storage across multiple cluster nodes. This allows pods to be moved from one node to another without manual intervention (moving the pv across nodes) and is quite helpful during failover or node maintenance.
 
 
 ## Credits

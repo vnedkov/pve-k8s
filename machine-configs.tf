@@ -47,18 +47,44 @@ locals {
         }),
 
         # Longhorn
-        # https://longhorn.io/docs/1.6.0/advanced-resources/os-distro-specific/talos-linux-support/
+        # https://longhorn.io/docs/1.8.0/advanced-resources/os-distro-specific/talos-linux-support/
         yamlencode({  
           machine = {
+            disks = [
+              { # Should match the number disks, defined for each node - TODO: make this dynamic
+                device = "/dev/sdb" # The name of the disk to use.
+                partitions = [
+                  {
+                    mountpoint = "/var/mnt/storage" # Where to mount the partition.
+                  }
+                ]
+              }
+            ]
             kubelet = {
               extraMounts = [
-                {
+                { # Needed for Longhorn to function
                   source =  "/var/lib/longhorn",
                   destination = "/var/lib/longhorn",
                   type = "bind",
                   options = [ "bind", "rshared", "rw" ]
+                },
+                { # Should match the disks section above
+                  source = "/var/mnt/storage"
+                  destination = "/var/mnt/storage"
+                  type = "bind"
+                  options = ["bind", "rshared", "rw" ]
                 }
               ]
+            },
+            sysctls = {
+              "vm.nr_hugepages": "1024"
+            },
+            kernel = {
+              modules = [
+                {name = "nvme_tcp"},
+                {name = "vfio_pci"}
+            #     # "uio_pci_generic"
+              ] 
             }
           },
           cluster = {
@@ -96,31 +122,31 @@ locals {
               # Gateway CRDs - see https://github.com/cilium/cilium/issues/33239 to understand why this is necessary before cluster creation
               {
                 name = "io_gatewayclasses"
-                contents = data.http.io_gatewayclasses.body
+                contents = data.http.io_gatewayclasses.response_body
               },
               {
                 name = "io_gateways"
-                contents = data.http.io_gateways.body
+                contents = data.http.io_gateways.response_body
               },
               {
                 name = "io_httproutes"
-                contents = data.http.io_httproutes.body
+                contents = data.http.io_httproutes.response_body
               },
               {
                 name = "io_referencegrants"
-                contents = data.http.io_referencegrants.body
+                contents = data.http.io_referencegrants.response_body
               },
               {
                 name = "io_grpcroutes"
-                contents = data.http.io_grpcroutes.body
+                contents = data.http.io_grpcroutes.response_body
               },
               {
                 name = "io_tlsroutes"
-                contents = data.http.io_tlsroutes.body
+                contents = data.http.io_tlsroutes.response_body
               },
               {
                 name = "io_tcproutes"
-                contents = data.http.io_tcproutes.body
+                contents = data.http.io_tcproutes.response_body
               },
               # Cilium installation
               {

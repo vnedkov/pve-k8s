@@ -1,41 +1,49 @@
 cluster = {
   name            = "talos"
-  endpoint        = "192.168.0.150"
+  endpoint        = "192.168.10.1"
   gateway         = "192.168.0.1"
-  talos_version   = "v1.8.1"
+  talos_version   = "v1.9.3"
   proxmox_cluster = "pve"
 }
 
 image = {
-  version = "v1.8.1"
+  version = "v1.9.3"
   proxmox_datastore = "local"
   extensions = [
       "i915-ucode",
       "intel-ucode",
-      "qemu-guest-agent"
+      "qemu-guest-agent",
+      # see https://longhorn.io/docs/1.6.0/advanced-resources/os-distro-specific/talos-linux-support/
+      "iscsi-tools",
+      "util-linux-tools"
     ]
 }
 
 nodes = {
-  "ctrl-00" = {
-    host_node     = "pve"
+  "ctrl-01" = {
+    host_node     = "pve1"
     machine_type  = "controlplane"
-    ip            = "192.168.0.150"
-    mac_address   = "BC:24:11:2E:C8:00"
-    vm_id         = 800
+    ip            = "192.168.10.1"
+    cidr_prefix   = 16
+    mac_address   = "BC:24:11:2E:C8:01"
+    vm_id         = 801
     cpu           = 4
     ram           = 4096 #4GB
     datastore_id  = "local-lvm"
+    disk_size     = 20
+    additional_disks = [{size=500}]
   }
-  "work-00" = {
+  "work-01" = {
     host_node     = "pve2"
     machine_type  = "worker"
-    ip            = "192.168.0.160"
-    mac_address   = "BC:24:11:2E:C9:00"
+    ip            = "192.168.10.2"
+    mac_address   = "BC:24:11:2E:C9:01"
     vm_id         = 810
     cpu           = 4
     ram           = 4096 #4GB
     datastore_id  = "local-lvm"
+    disk_size     = 8
+    additional_disks = [{size=500}]
   }
 }
 
