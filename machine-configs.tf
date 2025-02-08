@@ -47,18 +47,44 @@ locals {
         }),
 
         # Longhorn
-        # https://longhorn.io/docs/1.6.0/advanced-resources/os-distro-specific/talos-linux-support/
+        # https://longhorn.io/docs/1.8.0/advanced-resources/os-distro-specific/talos-linux-support/
         yamlencode({  
           machine = {
+            disks = [
+              { # Should match the number disks, defined for each node - TODO: make this dynamic
+                device = "/dev/sdb" # The name of the disk to use.
+                partitions = [
+                  {
+                    mountpoint = "/var/mnt/storage" # Where to mount the partition.
+                  }
+                ]
+              }
+            ]
             kubelet = {
               extraMounts = [
-                {
+                { # Needed for Longhorn to function
                   source =  "/var/lib/longhorn",
                   destination = "/var/lib/longhorn",
                   type = "bind",
                   options = [ "bind", "rshared", "rw" ]
+                },
+                { # Should match the disks section above
+                  source = "/var/mnt/storage"
+                  destination = "/var/mnt/storage"
+                  type = "bind"
+                  options = ["bind", "rshared", "rw" ]
                 }
               ]
+            },
+            sysctls = {
+              "vm.nr_hugepages": "1024"
+            },
+            kernel = {
+              modules = [
+                {name = "nvme_tcp"},
+                {name = "vfio_pci"}
+            #     # "uio_pci_generic"
+              ] 
             }
           },
           cluster = {
